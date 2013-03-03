@@ -2,7 +2,7 @@ session = ~/torrent/session;  Default session directory
 directory = ~/torrent/content-in-progress;  Where to keep files being downloaded
 
 min_peers = 50;  Keep looking if found less than this
-max_peers = 500;  Don't allow more connections than this PER TORRENT
+max_peers = 500;  Do not allow more connections than this PER TORRENT
 min_peers_seed = 10;  Same as above but for seeding completed torrents
 max_peers_seed = 100
 
