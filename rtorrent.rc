@@ -1,0 +1,58 @@
+session = ~/torrent/session;  Default session directory
+directory = ~/torrent/content-in-progress;  Where to keep files being downloaded
+
+min_peers = 50;  Keep looking if found less than this
+max_peers = 500;  Don't allow more connections than this PER TORRENT
+min_peers_seed = 10;  Same as above but for seeding completed torrents
+max_peers_seed = 100
+
+max_uploads = 15;   Max simultaneous uploads PER TORRENT
+check_hash = yes;  Check hash when finished or resumed
+
+# Seed ratio control closes (deletes) the torrent when the ratio is reached
+ratio.enable=
+ratio.min.set=200
+ratio.max.set=300
+ratio.upload.set=50M
+system.method.set = group.seeding.ratio.command, d.close=, d.erase=
+
+# Close torrents when diskspace is low
+schedule = low_diskspace,5,60,close_low_diskspace=400M
+
+
+port_range = 49160-49260;  Port range
+use_udp_trackers = yes;  Allow usage of UDP trackers
+encryption = allow_incoming,try_outgoing,enable_retry;  Prefer encryption
+
+dht = on;  DHT for trackerless torrents or when all trackers are down.
+dht_port = 6881;  Port for DHT must be open in your router
+peer_exchange = yes
+
+
+download_rate=2000;  Default throttle download speed in KB/s
+upload_rate=500;  Default throttle upload speed in KB/s
+
+# Speed scheduling: slower on mornings and evenings, faster (2x) otherwise
+schedule = throttle_morning_down,7:00:00,24:00:00,download_rate=1000
+schedule = throttle_morning_up,7:00:00,24:00:00,upload_rate=250
+
+schedule = throttle_daytime_down,10:00:00,24:00:00,download_rate=2000
+schedule = throttle_daytime_up,10:00:00,24:00:00,upload_rate=500
+
+schedule = throttle_evening_down,17:30:00,24:00:00,download_rate=1000
+schedule = throttle_evening_up,17:30:00,24:00:00,upload_rate=250
+
+schedule = throttle_latenight_down,23:30:00,24:00:00,download_rate=2000
+schedule = throttle_latenight_up,23:30:00,24:00:00,upload_rate=500
+
+
+# Watch a directory for torrent files. Start those which are added.
+schedule = watch_dir,2,7,"load_start=~/torrent/metafiles-in-progress/*.torrent,d.set_custom2=1"
+
+# Move completed torrent data to finished dir and archive metafile for posterity.
+system.method.set_key = event.download.finished,clear_incomplete_flag,d.set_custom2=
+system.method.set_key = event.download.finished,move_complete,"d.set_directory=~/torrent/content-finished;execute={mv,-u,$d.get_base_path=,~/torrent/content-finished/};execute={cp,$d.get_tied_to_file=,~/torrent/metafiles-finished/}"
+
+# INCOMPLETE downloads which are closed (deleted) have its DATA also removed.
+system.method.set_key = event.download.erased,rm_incomplete_data,"branch=d.get_custom2=1,\"execute={rm,-rf,--,$d.get_base_path=}\""
+
