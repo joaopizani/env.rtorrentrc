@@ -9,19 +9,18 @@ then
     ln -s -f ${TORRENTING_ROOT} ${TORRENTING_ROOT_DEFAULT}
 fi
 
-mkdir -p "${TORRENTING_ROOT}/session"
-mkdir -p "${TORRENTING_ROOT}/content-in-progress"
-mkdir -p "${TORRENTING_ROOT}/content-finished"
-mkdir -p "${TORRENTING_ROOT}/metafiles-in-progress"
-mkdir -p "${TORRENTING_ROOT}/metafiles-finished"
+TORRENT_SUBDIRS=('session' 'content-in-progress' 'content-finished' 'metafiles-in-progress' 'metafiles-finished')
+for subdir in "${TORRENT_SUBDIRS[@]}"; do
+    mkdir -p "${TORRENTING_ROOT}/${subdir}"
+done
 
 
 REL_SRC=${BASH_SOURCE[0]}
 CANONICAL_SRC=$(readlink -f $REL_SRC)
 DIR="$(cd -P "$(dirname $CANONICAL_SRC)" && pwd)"
 
-ln -s -f ${DIR}/rtorrent.rc    ${HOME}/.rtorrent.rc
+ln -s -f "${DIR}/rtorrent.rc"    "${HOME}/.rtorrent.rc"
 
-mkdir -p ${HOME}/bin
-ln -s -f ${DIR}/magnet.sh      ${HOME}/bin/magnet.sh
+mkdir -p "${HOME}/bin"
+ln -s -f "${DIR}/magnet.sh"      "${HOME}/bin/magnet.sh"
 
