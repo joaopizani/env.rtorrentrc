@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 TORRENTING_ROOT_DEFAULT="${HOME}/torrent"
-TORRENTING_ROOT_=${1:-$TORRENTING_ROOT_DEFAULT}
-TORRENTING_ROOT=$(readlink -f "$TORRENTING_ROOT_")
+TORRENTING_ROOT_="${1:-$TORRENTING_ROOT_DEFAULT}"
+TORRENTING_ROOT="$(readlink -f "$TORRENTING_ROOT_")"
 
 if [ "${TORRENTING_ROOT}" != "${TORRENTING_ROOT_DEFAULT}" ]
 then
@@ -15,9 +15,7 @@ for subdir in "${TORRENT_SUBDIRS[@]}"; do
 done
 
 
-REL_SRC="${BASH_SOURCE[0]}"
-CANONICAL_SRC=$(readlink -f "$REL_SRC")
-DIR="$(cd -P "$(dirname $CANONICAL_SRC)" && pwd)"
+DIR="$(cd -P "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd)"
 
 ln -s -f -n "${DIR}/rtorrent.rc"    "${HOME}/.rtorrent.rc"
 
