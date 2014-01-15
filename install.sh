@@ -20,5 +20,6 @@ DIR="$(cd -P "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd)"
 ln -s -f -n "${DIR}/rtorrent.rc"    "${HOME}/.rtorrent.rc"
 
 mkdir -p "${HOME}/bin"
-ln -s -f -n "${DIR}/magnet.sh"      "${HOME}/bin/magnet.sh"
+"${DIR}/magnet-get/magnet-get-generate.sh" "${TORRENTING_ROOT}/metafiles-in-progress"
+ln -s -f -n "${DIR}/magnet-get/magnet-get"  "${HOME}/bin/magnet-get"
 
