@@ -19,5 +19,5 @@ DIR="$(cd -P "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd)"
 
 ln -s -f -n "${DIR}/rtorrent.rc"    "${HOME}/.rtorrent.rc"
 
-"${DIR}/magnet-get/install.sh"
+"${DIR}/magnet-get/install.sh"  "${TORRENTING_ROOT}"
 

@@ -2,6 +2,8 @@
 
 DIR="$(cd -P "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd)"
 
+TORRENTING_ROOT="${1}"
+
 
 "${DIR}/magnet-get-generate.sh" "${TORRENTING_ROOT}/metafiles-in-progress"
 chmod +x "${DIR}/magnet-get"
