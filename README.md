@@ -34,6 +34,15 @@ Also, some settings that I find very useful, but you might want to change in `rt
   * Speed scheduling: down and up speed are _halved_ early in the mornings (7:00-10:00) and in the evening (17:30-23:00),
     as in these periods the connection is more likely to be used by other applications also.
 
+  * RTorrent is made the _default_ application to handle magnet links.
+    That is, whenever you click on a magnet link on your browser, it will queue a download in RTorrent.
+    If RTorrent is not running at the moment, the download will start whenever you run RTorrent.
+      + What is _actually_ done when a magnet link is clicked is create a `.torrent` file representing the magnet link
+        inside the `metafiles-in-progress` directory.
+      + If you wish to _deregister_ RTorrent from handling magnet links, type the following into a terminal:
+        `xdg-mime default <your-application>.desktop x-scheme-handler/magnet`, where `<your-application>` can
+        be something like `transmission-gtk`, `deluge`, or whatever else you want.
+
 How to install
 --------------
 
