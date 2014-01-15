@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Magnet
+Type=Application
+Comment=Open a magnet link with a script
+Exec=/home/joaopizani/bin/magnet-get %U
+Categories=Network;WebBrowser;
+MimeType=x-scheme-handler/magnet;
