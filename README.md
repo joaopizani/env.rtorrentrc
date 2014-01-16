@@ -31,9 +31,7 @@ Highlights of the setup
       + If **both** are defined, the metafile is created at `${MAGNET_USER}@${MAGNETGET_HOST}:<meta_in_progress_dir>`.
       + If only `MAGNETGET_HOST` is defined, then it's created at `${USER}@${MAGNETGET_HOST}:<meta_in_progress_dir>`.
       + If **none are defined** (default), it's created normally at `localhost:<meta_in_progrss_dir>`.
-
-      + For example, I have a torrent box at `192.168.1.10`. So I define `export MAGNETGET_HOST=192.168.1.10`.
-          - But if I want to register a download on my _local_ machine, then I `unset MAGNETGET_HOST`.
+      + For example, I have a torrent box on my LAN. So I define `export MAGNETGET_HOST=192.168.1.10`.
 
 ### Reasonable defaults, but which you MIGHT want to change
 
@@ -42,7 +40,7 @@ The following settings can be changed in `rtorrent.rc`:
   * RTorrent is set to always _try_ encryption, that is, allow incoming, try outgoing.
   * The maximum number of upload slots _per torrent_ is 15.
   * Default maximum download speed of 2MB/s and maximum upload speed of 1MB/s.
-  * Seed ration control: torrent is closed automatically after reaching seed ration of 200%.
+  * Seed ratio control: torrent is closed automatically after reaching seed ration of 200%.
   * Speed scheduling: down and up speed are _halved_ early in the mornings (7:00-10:00) and in the evening (17:30-23:00),
     as in these periods the connection is more likely to be used by other applications also.
 
