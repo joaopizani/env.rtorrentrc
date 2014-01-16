@@ -7,7 +7,7 @@ This "personal" setup is the result of years of organization, and at this stage 
 Highlights of the setup
 -----------------------
 
-Non-polemic issues, which I think that should be generally useful:
+### Non-polemic issues, generally useful
 
   * Concentrates all torrenting-related files into a directory hierarchy under a user-defined directory.
 
@@ -21,11 +21,23 @@ Non-polemic issues, which I think that should be generally useful:
   * The contents of current downloads are kept in `content-in-progress`, and when download is finished they are moved to `content-finished`.
     During post-download seeding, the contents will _already_ be at `content-finished`.
 
+### Magnet-get, the script integrating RTorrent and magnet links
+
   * With this setup, you get a script called `magnet-get` (which is linked into `~/bin`).
     Calling this script with a magnet link as parameter will create a correspondent torrent file under
     `metafiles-in-progress`, and therefore _start a download_.
 
-Also, some settings that I find very useful, but you might want to change in `rtorrent.rc`
+  * The script reads environment variables called `MAGNETGET_HOST` and `MAGNETGET_USER`
+      + If **both** are defined, the metafile is created at `${MAGNET_USER}@${MAGNETGET_HOST}:<meta_in_progress_dir>`.
+      + If only `MAGNETGET_HOST` is defined, then it's created at `${USER}@${MAGNETGET_HOST}:<meta_in_progress_dir>`.
+      + If **none are defined** (default), it's created normally at `localhost:<meta_in_progrss_dir>`.
+
+      + For example, I have a torrent box at `192.168.1.10`. So I define `export MAGNETGET_HOST=192.168.1.10`.
+          - But if I want to register a download on my _local_ machine, then I `unset MAGNETGET_HOST`.
+
+### Reasonable defaults, but which you MIGHT want to change
+
+The following settings can be changed in `rtorrent.rc`:
 
   * RTorrent is set to always _try_ encryption, that is, allow incoming, try outgoing.
   * The maximum number of upload slots _per torrent_ is 15.
@@ -33,6 +45,8 @@ Also, some settings that I find very useful, but you might want to change in `rt
   * Seed ration control: torrent is closed automatically after reaching seed ration of 200%.
   * Speed scheduling: down and up speed are _halved_ early in the mornings (7:00-10:00) and in the evening (17:30-23:00),
     as in these periods the connection is more likely to be used by other applications also.
+
+Concerning RTorrent being the default handler for magnet links...
 
   * RTorrent is made the _default_ application to handle magnet links.
     That is, whenever you click on a magnet link on your browser, it will queue a download in RTorrent.
@@ -42,6 +56,7 @@ Also, some settings that I find very useful, but you might want to change in `rt
       + If you wish to _deregister_ RTorrent from handling magnet links, type the following into a terminal:
         `xdg-mime default <your-application>.desktop x-scheme-handler/magnet`, where `<your-application>` can
         be something like `transmission-gtk`, `deluge`, or whatever else you want.
+
 
 How to install
 --------------
